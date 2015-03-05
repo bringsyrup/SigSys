@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 #                           0               for k is even
 #                           T/(j*2*pi*k)    for k is odd
 
-def squareWave(k_range=[0, 100], t_res=100, T=1):
+def squareWave(k_range=[0, 100], t_res=100, T=1, shift=0.0):
     T = int(T)
     if len(k_range) == 1:
         kmin = 0
@@ -22,17 +22,18 @@ def squareWave(k_range=[0, 100], t_res=100, T=1):
 
     for k in K:
         if k == 0:
-            terms.append([0 for t in ts])
+            terms.append([0.5 for t in ts])
         elif k % 2 == 1:
-            terms.append([t * np.sinc(2*k*t/T) for t in ts])
+            terms.append([(t - shift) * np.sinc(2*k*(t - shift)/T) for t in ts])
         else:
             pass
     return ts, np.sum(terms, axis=0)
 
 if __name__=="__main__":
-    ts1, x1 = squareWave(k_range=[5], T=4)
-    ts2, x2 = squareWave(k_range=[17], T=4)
-    ts3, x3 = squareWave(k_range=[257], T=4)
+    T = 4.0
+    ts1, x1 = squareWave(k_range=[5], T=T, shift=-T/4)
+    ts2, x2 = squareWave(k_range=[17], T=T, shift=-T/4)
+    ts3, x3 = squareWave(k_range=[257], T=T, shift=-T/4)
     plt.subplot(311)
     plt.plot(ts1, x1, linewidth=2)
     plt.title("Fourier Square Waves with T = 4 and k = 5, 17, and 257", fontsize=24)
