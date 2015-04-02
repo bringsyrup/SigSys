@@ -8,6 +8,7 @@ def generate(bits, rate=10000, bitWidth=250, freq=1000, padding=15.0):
     rate --> transmission rate
     bitWidth --> number of samples per symbol
     freq --> cosine multiplier frequency
+    padding --> the signal way expand during transmission so I account for that
     """
     
     end = (len(bits) + padding)*bitWidth/rate
