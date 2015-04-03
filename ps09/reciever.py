@@ -47,6 +47,6 @@ def recieve(sampleRate=8000, threshold=1000, chunkSize=1000):
 
 if __name__=="__main__":
     sampleRate = 10000
-    signal = recieve(sampleRate=sampleRate, threshold=13000, chunkSize=1000)
+    signal = recieve(sampleRate=sampleRate, threshold=16000, chunkSize=1000)
     bits = BPSK.decode(signal)
     print b2a(bits)

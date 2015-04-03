@@ -1,6 +1,7 @@
 #! /bin/env python
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 def generate(bits, rate=10000, bitWidth=250, freq=1000, padding=15.0):
     """
@@ -69,6 +70,12 @@ def decode(transmission, freq=1000, rate=10000., bitWidth=250, TF=0.5, LPFcutoff
             bestVar = variance
             bestTheta = theta
     filtSignal = np.convolve(signal*np.cos(2*np.pi*t*freq + bestTheta), sincFilter)
+
+    plt.plot(xrange(len(signal)), signal)
+    plt.plot(xrange(len(filtSignal)), filtSignal/(7e4), 'r-', linewidth=2)
+    plt.title('transmission and filtered signal')
+    plt.legend(['transmission', 'filtered signal'])
+    plt.show()
 
     # some final filtering is necessary, as the filtered signal is shifted in time
     start, end = findEnds(filtSignal,  TF*np.max(filtSignal))
