@@ -44,7 +44,7 @@ def findEnds(trans, threshold):
     return start, end
 
 
-def decode(transmission, freq=1000, rate=10000., bitWidth=250, TF=0.4, LPFcutoff=320):
+def decode(transmission, freq=1000, rate=10000., bitWidth=250, TF=0.5, LPFcutoff=700):
     """
     transmission --> the raw recieved transmission
     freq --> cosine multiplier frequency
