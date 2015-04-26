@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="chirprecording_data" version="1.3.0" audacityversion="2.1.0" sel0="2.0041010407" sel1="3.9995756267" vpos="0" h="1.3928425188" zoom="335.2855715573" rate="11025.0" snapto="off" selectionformat="hh:mm:ss + milliseconds">
+	<tags/>
+	<wavetrack name="chirprecording" channel="0" linked="1" mute="0" solo="0" height="151" minimized="0" isSelected="1" rate="11025" gain="1.0" pan="0.0">
+		<waveclip offset="2.00410104">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="22000">
+				<waveblock start="0">
+					<simpleblockfile filename="e00009e7.au" len="22000" min="-0.87854" max="0.874756" rms="0.075055"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="chirprecording" channel="1" linked="0" mute="0" solo="0" height="149" minimized="0" isSelected="1" rate="11025" gain="1.0" pan="0.0">
+		<waveclip offset="2.00410104">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="22000">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000140.au" len="22000" min="-0.878479" max="0.874847" rms="0.075055"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
