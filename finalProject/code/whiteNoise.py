@@ -4,14 +4,16 @@ import numpy as np
 import sys
 import bode
 
-def write(wavFiles, frameRate):
-    wavIn = thinkdsp.read_wave(wavFile[1])
-    wavOut = thinkdsp.read_wave(wavFile[2])
-    trasferFunc = len(wavIn) * np.correlate(wavIn.ys,wavOut.ys)
-    dsp.Wave(trasferFunc, frameRate).write('wnTransferFunc.wav')
-    bode.plot(np.fft.fft(trasferFunc), 'White noise')
+def write(wavIn, wavOut):
+    wavIn = dsp.read_wave(wavIn)
+    wavOut = dsp.read_wave(wavOut)
+    transferFunc = len(wavIn) * np.correlate(wavIn.ys, wavOut.ys)
+    dsp.Wave(transferFunc, wavIn.framerate).write('wnTransferFunc.wav')
+    freqResp = np.fft.fft(transferFunc)
+    print transferFunc
+    bode.plot(freqResp[0:len(freqResp/2)], 'White noise')
     return
 
 
 if __name__ == "__main__":
-    write(sys.argv[1:2], sys.argv[3])
+    write(sys.argv[1], sys.argv[2])

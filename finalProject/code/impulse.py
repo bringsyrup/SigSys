@@ -10,7 +10,7 @@ def write(wavFile):
     f = open('impulseFFT.csv', 'w')
     for freq in freqResp:
         f.write('{!s}\n'.format(freq))
-    bode.plot(freqResp, 'an impulse response')
+    bode.plot(freqResp[0:len(freqResp)/2], 'an impulse response')
     return
 
 if __name__=="__main__":

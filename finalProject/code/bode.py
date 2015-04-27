@@ -16,7 +16,7 @@ def plot(freqResp, transferType):
     phases, amps = polar(freqResp)
     plt.subplot(2, 1, 1)
     plt.plot(np.linspace(0, len(amps), len(amps)), amps)
-    plt.title('Transfer function using' + transferType, fontsize=14)
+    plt.title('Transfer function using ' + transferType, fontsize=14)
     plt.ylabel('Amplitude', fontsize=12)
     plt.subplot(2, 1, 2)
     plt.plot(np.linspace(0, len(phases), len(phases)), phases)
@@ -29,5 +29,5 @@ if __name__=="__main__":
     s = np.linspace(np.complex(0 + 1j), np.complex(100 + 3j), 200)
     wc = np.complex(50+1j)
     h = wc/(wc + s)
-    plot(h)
+    plot(h, "test")
 

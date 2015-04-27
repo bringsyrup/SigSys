@@ -3,28 +3,33 @@
 import numpy as np
 import thinkdsp as dsp
 
+"""helper functions"""
 def csvParser(csv):
     with open(csv) as f:
         data = np.asarray(f.readlines()).astype(np.complex)
     return data
 
+def freqDomain(H, x):
+    """H must be an fft, x must be a thinkdsp.Wave object"""
+    X = np.fft.fft(x.ys)
+    Y = H*X
+    y = np.fft.ifft(Y)
+    return y
+
+"""filters"""
 def theoretical(wav):
     print "this function doesn't work yet"
     return
 
 def chirp(x, csv="chirpFFT.csv"):
     H = csvParser(csv)
-    X = np.fft.fft(x.ys)
-    Y = H*X
-    y = np.fft.ifft(Y)
+    y = freqDomain(H, x)
     dsp.Wave(y, framerate=x.framerate).write("filtered_chirp.wav")
     return
 
 def impulse(x, csv="impulseFFT.csv"):
     H = csvParser(csv)
-    X = np.fft.fft(x.ys)
-    Y = H*X
-    y = np.fft.ifft(Y)
+    y = freqDomain(H, x)
     dsp.Wave(y, framerate=x.framerate).write("filtered_impulse.wav")
     return
 
@@ -78,4 +83,4 @@ if __name__=="__main__":
         impulse(signal)
     else:
         print "no filter type selected. The default is whitenoise"
-        whiteNoise(args.wav)
+        whiteNoise(signal)
