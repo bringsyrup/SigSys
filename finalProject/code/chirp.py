@@ -6,13 +6,16 @@ import sys
 import bode
 
 def write(wavIn, wavOut):
-    freqRespIn = np.fft.fft(dsp.read_wave(wavIn).ys)
-    freqRespOut = np.fft.fft(dsp.read_wave(wavOut).ys)
-    f = open('chirpFFT.csv', 'w')
-    freqResp = freqRespOut/freqRespIn
-    for i in range(len(freqRespIn)):
-        f.write('{!s}\n'.format(freqResp[i]))
-    bode.plot(freqResp[0:len(freqResp)/2], "Chirp Signal")
+    wavIn = dsp.read_wave(wavIn)
+    wavOut = dsp.read_wave(wavOut)
+    if wavOut.framerate != wavIn.framerate or len(wavOut.ys) != len(wavIn.ys):
+        print "wav files must have same length and framerate"
+    else:
+        f = open('chirpFFT.csv', 'w')
+        freqResp = np.fft.fft(wavOut.ys)/np.fft.fft(wavIn.ys)
+        for i in range(len(freqResp)):
+            f.write('{!s}\n'.format(freqResp[i]))
+        bode.plot(freqResp, "Chirp Signal")
     return
 
 if __name__=="__main__":

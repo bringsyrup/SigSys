@@ -5,8 +5,9 @@ import thinkdsp as dsp
 import sys
 import bode
 
-def write(wavFile):
-    freqResp = np.fft.fft(dsp.read_wave(wavFile).ys)
+def write(wavIn):
+    wavIn = dsp.read_wave(wavIn)
+    freqResp = np.fft.fft(wavIn.ys)
     f = open('impulseFFT.csv', 'w')
     for freq in freqResp:
         f.write('{!s}\n'.format(freq))
@@ -14,5 +15,5 @@ def write(wavFile):
     return
 
 if __name__=="__main__":
-    write(sys.argv[1])
+    write(sys.argv[1])#, sys.argv[2])
 
