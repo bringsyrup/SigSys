@@ -10,11 +10,11 @@ def write(wavIn, wavOut):
     frout, yout = wavfile.read(wavOut)
     if frin != frout:
         print "WARNING: wav files do not have equal framerates"
-    transferFunc = np.correlate(yin.flatten().astype(float), yout.flatten().astype(float), 'full')
+    transferFunc = np.correlate(yin[:,0].astype(float), yout[:,0].astype(float), 'full')
     transferFunc = transferFunc/np.max(transferFunc)
     freqResp = np.fft.fft(transferFunc)
     wavfile.write('wnTransferFunc.wav', frout, transferFunc[len(transferFunc)/2:])
-    plt.plot(transferFunc[len(transferFunc)/2:])
+    plt.plot(transferFunc)
     plt.show()
     #bode.plot(freqResp[:20000], 'White noise')
     return

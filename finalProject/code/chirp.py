@@ -1,6 +1,5 @@
 #! /bin/env python
 
-import thinkdsp as dsp
 import numpy as np
 import sys
 import bode
