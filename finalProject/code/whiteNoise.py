@@ -7,10 +7,13 @@ import bode
 def write(wavIn, wavOut):
     wavIn = dsp.read_wave(wavIn)
     wavOut = dsp.read_wave(wavOut)
-    transferFunc = len(wavIn) * np.convolve(wavIn.ys, wavOut.ys)
-    dsp.Wave(transferFunc, wavIn.framerate).write('wnTransferFunc.wav')
-    print transferFunc
-    bode.plot(freqResp[0:len(freqResp/2)], 'White noise')
+    if wavIn.framerate != wavOut.framerate or len(wavIn.ys) != len(wavOut.ys):
+        print "wav files must have same framerate and length"
+    else:
+        transferFunc = np.correlate(wavIn.ys, wavOut.ys, 'same')
+        freqResp = np.fft.fft(transferFunc)
+        dsp.Wave(transferFunc, wavIn.framerate).write('wnTransferFunc.wav')
+        bode.plot(freqResp[0:len(freqResp)/2], 'White noise')
     return
 
 
