@@ -2,6 +2,7 @@
 
 import numpy as np
 import thinkdsp as dsp
+from scipy.io import wavfile
 
 """helper functions"""
 def csvParser(csv):
@@ -22,21 +23,27 @@ def theoretical(wav):
     return
 
 def chirp(x, csv="chirpFFT.csv"):
+    x = x[1]
+    frx = x[0]
     H = csvParser(csv)
     y = freqDomain(H, x)
-    dsp.Wave(y, framerate=x.framerate).write("filtered_chirp.wav")
+    wavfile.write("filtered_chirp.wav", frx, y)
     return
 
 def impulse(x, csv="impulseFFT.csv"):
+    x = x[1]
+    frx = x[0]
     H = csvParser(csv)
     y = freqDomain(H, x)
-    dsp.Wave(y, framerate=x.framerate).write("filtered_impulse.wav")
+    wavfile.write("filtered_impulse.wav", frx, y)
     return
 
 def whiteNoise(x, wav="wnTransferFunc.wav"):
-    h = dsp.read_wave(wav)
-    y = np.convolve(x.ys, h.ys)
-    dsp.Wave(y, framerate=x.framerate).write("filtered_whiteNoise.wav")
+    x = x[1]
+    frx = x[0]
+    frh, h = wavfile.read(wav)
+    y = np.convolve(x.astype(float), h.astype(float), 'full')
+    wavfile.write("filtered_whiteNoise.wav", frx, y)
     return
 
 
@@ -71,7 +78,8 @@ if __name__=="__main__":
             )
     args = parser.parse_args()
     
-    signal = dsp.read_wave(args.wav)
+    fr, signal = wavfile.read(args.wav)
+    signal = [fr, signal]
 
     if args.theoretical:
         theoretical(signal)

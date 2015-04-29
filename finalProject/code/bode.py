@@ -14,13 +14,13 @@ def polar(a):
 
 def plot(freqResp, transferType):
     phases, amps = polar(freqResp)
-    plt.subplot(2, 1, 1)
+    #plt.subplot(2, 1, 1)
     plt.plot(np.linspace(0, len(amps), len(amps)), amps)
     plt.title('Transfer function using ' + transferType, fontsize=14)
     plt.ylabel('Amplitude', fontsize=12)
-    plt.subplot(2, 1, 2)
-    plt.plot(np.linspace(0, len(phases), len(phases)), phases)
-    plt.ylabel('Phase', fontsize=12)
+    #plt.subplot(2, 1, 2)
+    #plt.plot(np.linspace(0, len(phases), len(phases)), phases)
+    #plt.ylabel('Phase', fontsize=12)
     plt.xlabel('Frequency (Hz)', fontsize=12)
     plt.show()
     return
